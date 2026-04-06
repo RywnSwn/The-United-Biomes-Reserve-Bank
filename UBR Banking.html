@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>United Biomes Reserve — Overworld Central Authority</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #00529B;
+  --navy-dark: #003D75;
+  --navy-deeper: #002550;
+  --red: #E62124;
+  --gold: #C9A84C;
+  --gold-light: #F0D080;
+  --white: #FFFFFF;
+  --off-white: #F4F7FA;
+  --gray-100: #EEF1F5;
+  --gray-200: #DDE2EA;
+  --gray-400: #94A3B8;
+  --gray-600: #64748B;
+  --gray-800: #334155;
+  --text: #1A2332;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--off-white);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  background: var(--navy-deeper);
+  border-bottom: 3px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 60px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-logo-box {
+  width: 36px;
+  height: 36px;
+  background: var(--red);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.nav-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.nav-sub {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-link {
+  padding: 8px 14px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s;
+  font-weight: 500;
+  border: none;
+  background: none;
+}
+
+.nav-link:hover { background: rgba(255,255,255,0.08); color: white; }
+.nav-link.active { background: rgba(201,168,76,0.15); color: var(--gold); }
+
+/* PAGES */
+.page { display: none; }
+.page.active { display: block; }
+
+/* HERO */
+.hero {
+  background: var(--navy-deeper);
+  padding: 72px 32px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 40px,
+    rgba(255,255,255,0.015) 40px,
+    rgba(255,255,255,0.015) 41px
+  );
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 900;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.hero h1 span { color: var(--gold); }
+
+.hero-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 40px;
+  letter-spacing: 0.3px;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.hero-stat-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 4px;
+}
+
+/* CONTENT WRAPPER */
+.content-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+/* SECTION HEADERS */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.section-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--navy);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.section-icon svg { width: 18px; height: 18px; }
+
+.section-title-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy-dark);
+}
+
+.section-title-text p {
+  font-size: 13px;
+  color: var(--gray-600);
+  margin-top: 2px;
+}
+
+/* CARDS */
+.card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* CHECKBOOK STEPS */
+.steps { display: grid; gap: 0; }
+
+.step-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--gray-100);
+  position: relative;
+}
+
+.step-row:last-child { border-bottom: none; }
+
+.step-circle {
+  width: 32px;
+  height: 32px;
+  background: var(--navy);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.step-body h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.step-body p { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+
+/* LOAN CALC */
+.promo-banner {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.promo-banner-left h3 { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 4px; font-weight: 400; }
+.promo-banner-left .rate { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--gold); }
+.promo-banner-left .rate span { font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.6); font-family: 'DM Sans', sans-serif; }
+
+.compounding-warning {
+  background: rgba(230,33,36,0.1);
+  border: 1px solid rgba(230,33,36,0.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #BC1B1E;
+  font-weight: 500;
+}
+
+.calc-box {
+  background: var(--off-white);
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.slider-label { font-size: 12px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.5px; min-width: 110px; }
+.slider-row input[type=range] { flex: 1; accent-color: var(--navy); }
+.slider-val { font-size: 13px; font-weight: 700; color: var(--navy); min-width: 80px; text-align: right; }
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--gray-200);
+}
+
+.result-card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.result-label { font-size: 10px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.result-val { font-size: 22px; font-weight: 700; color: var(--navy); }
+.result-val.danger { color: var(--red); }
+
+.rounding-note { font-size: 10px; color: var(--gray-400); margin-top: 10px; font-style: italic; }
+
+/* SAVINGS */
+.savings-rate-hero {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.savings-rate-hero .rate-big {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--gold);
+}
+
+.savings-rate-hero .rate-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 4px;
+}
+
+.savings-rate-hero .rate-desc {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 8px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* REWARDS */
+.rewards-header-box {
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  border-radius: 10px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.rewards-header-box h3 { font-size: 15px; font-weight: 700; color: #92400E; }
+.rewards-header-box p { font-size: 12px; color: #B45309; margin-top: 3px; }
+
+.rewards-badge-big {
+  background: #F59E0B;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.points-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.points-card {
+  background: white;
+  border: 1px solid #FDE68A;
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+}
+
+.points-card .pts { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: #D97706; }
+.points-card .pts-label { font-size: 11px; color: #92400E; font-weight: 600; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.redeem-box {
+  background: #FFFBEB;
+  border: 1px dashed #FCD34D;
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+}
+
+.redeem-box p { font-size: 13px; color: #B45309; }
+.redeem-box .coming { font-size: 11px; color: #D97706; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+
+/* REFINED ENFORCEMENT STYLE */
+.enforcement-header {
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  border-left: 4px solid var(--red);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+.enforcement-header h3 { font-size: 15px; font-weight: 700; color: #991b1b; margin-bottom: 4px; }
+.enforcement-header p { font-size: 13px; color: #7f1d1d; line-height: 1.6; }
+
+.enforcement-step {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.enforcement-num {
+  background: var(--red);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.enforcement-step h4 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.enforcement-step p { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+
+/* TERMS & CONDITIONS STYLE */
+.contract-paper {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  padding: 40px;
+  font-family: 'serif';
+  line-height: 1.7;
+  color: #374151;
+  font-size: 13px;
+}
+
+.contract-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--navy); padding-bottom: 20px; }
+.contract-header h2 { font-family: 'Playfair Display', serif; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; }
+
+.contract-section { margin-bottom: 20px; }
+.contract-section h4 { color: var(--navy-dark); text-transform: uppercase; font-size: 12px; margin-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
+
+.sig-line { margin-top: 40px; border-top: 1px solid #000; width: 200px; display: inline-block; }
+
+/* FOOTER */
+footer {
+  background: var(--navy-deeper);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 24px 32px;
+  text-align: center;
+}
+
+footer p { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 1px; text-transform: uppercase; }
+footer span { color: var(--gold); }
+
+/* INFO BOX */
+.info-box {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: #1E40AF;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-box">UBR</div>
+    <div>
+      <div class="nav-name">United Biomes Reserve</div>
+      <div class="nav-sub">Overworld Central Authority</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('home', this)">Home</button>
+    <button class="nav-link" onclick="showPage('checks', this)">Checks</button>
+    <button class="nav-link" onclick="showPage('loans', this)">Loans</button>
+    <button class="nav-link" onclick="showPage('savings', this)">Savings</button>
+    <button class="nav-link" onclick="showPage('rewards', this)">Rewards</button>
+    <button class="nav-link" onclick="showPage('enforcement', this)">Enforcement</button>
+    <button class="nav-link" onclick="showPage('terms', this)">Terms</button>
+  </div>
+</nav>
+
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-badge">The United Biomes Reserve Bank · Founded by Ryan</div> 
+    <h1>The <span>United Biomes</span><br>Reserve</h1>
+    <p class="hero-sub">The Overworld's only chartered financial institution. Secure your assets, grow your wealth, and trust the system.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">5%</div>
+        <div class="hero-stat-label">Daily loan rate</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">2%</div>
+        <div class="hero-stat-label">Savings interest</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">10%</div>
+        <div class="hero-stat-label">Flat loan fee</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">UBR</div>
+        <div class="hero-stat-label">Reward points</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="card-grid">
+      <div class="card" style="border-top: 3px solid var(--navy); cursor:pointer;" onclick="showPage('checks', document.querySelectorAll('.nav-link')[1])">
+        <div style="font-size:22px;margin-bottom:10px;">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3" stroke="#00529B" stroke-width="1.5"/><path d="M7 10h10M7 14h6" stroke="#00529B" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">Checkbook System</h3>
+        <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Signed books as checks. Ledger-backed. Fraud-proof.</p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--navy); cursor:pointer;" onclick="showPage('loans', document.querySelectorAll('.nav-link')[2])">
+        <div style="margin-bottom:10px;">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="#00529B" stroke-width="1.5"/><path d="M12 7v5l3 3" stroke="#00529B" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">Loans</h3>
+        <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Borrow diamonds today. 5% interest per day. Pay on time.</p>
+      </div>
+      <div class="card" style="border-top: 3px solid #16A34A; cursor:pointer;" onclick="showPage('savings', document.querySelectorAll('.nav-link')[3])">
+        <div style="margin-bottom:10px;">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" stroke="#16A34A" stroke-width="1.5"/><circle cx="12" cy="12" r="2" stroke="#16A34A" stroke-width="1.5"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:#16A34A;margin-bottom:6px;">Savings</h3>
+        <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">2% interest per IRL day. Your diamonds work while you sleep.</p>
+      </div>
+      <div class="card" style="border-top: 3px solid #D97706; cursor:pointer;" onclick="showPage('rewards', document.querySelectorAll('.nav-link')[4])">
+        <div style="margin-bottom:10px;">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:#D97706;margin-bottom:6px;">UBR Reward Points</h3>
+        <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Earn points on every transaction. Redemptions coming soon.</p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--red); cursor:pointer;" onclick="showPage('enforcement', document.querySelectorAll('.nav-link')[5])">
+        <div style="margin-bottom:10px;">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" stroke="#E62124" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:6px;">Enforcement</h3>
+        <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Don't pay? We will invoke our Asset Recovery clause in our contract.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-checks" class="page">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg fill="none" viewBox="0 0 18 18"><rect x="1" y="3" width="16" height="12" rx="2" stroke="white" stroke-width="1.2"/><path d="M4 8h10M4 11h6" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="section-title-text">
+        <h2>Diamond Secure™ Checkbook</h2>
+        <p>Signed books as checks — ledger-backed and fraud-proof</p>
+      </div>
+    </div>
+
+    <div class="info-box">
+      Checks are for large transfers only. Day-to-day trading stays in diamonds. The ledger is the source of truth — any check not recorded is void.
+    </div>
+
+    <div class="card">
+      <div class="steps">
+        <div class="step-row">
+          <div class="step-circle">1</div>
+          <div class="step-body">
+            <h3>Deposit your diamonds</h3>
+            <p>Hand diamonds to the bank in person. Amount is logged in the UBR ledger under your name.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-circle">2</div>
+          <div class="step-body">
+            <h3>Banker signs a book</h3>
+            <p>Ryan signs the book. That signature is proof of authorization — it can't be forged without the banker's account.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-circle">3</div>
+          <div class="step-body">
+            <h3>You fill in the amount</h3>
+            <p>Write the diamond value you're transferring inside the book. Hand it to the seller as payment.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-circle">4</div>
+          <div class="step-body">
+            <h3>Seller redeems at UBR</h3>
+            <p>Seller brings the book to the bank. We verify it against the ledger. Balance confirmed — diamonds paid out. Check voided.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-circle" style="background:#E62124;">!</div>
+          <div class="step-body">
+            <h3>Insufficient balance</h3>
+            <p>If your account can't cover the check, Asset Recovery Protocol is triggered. See Enforcement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-loans" class="page">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg fill="none" viewBox="0 0 18 18"><circle cx="9" cy="9" r="7" stroke="white" stroke-width="1.2"/><path d="M9 5v4l2.5 2.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="section-title-text">
+        <h2>Loans</h2>
+        <p>Borrow diamonds now, repay with interest by the agreed date</p>
+      </div>
+    </div>
+
+    <div class="promo-banner" style="flex-direction:column;align-items:flex-start;gap:14px;">
+      <div class="promo-banner-left">
+        <h3>Preferred borrowing rate — compounding daily</h3>
+        <div class="rate">5.0% <span>interest per day</span></div>
+      </div>
+      <div style="background:#E62124;border-radius:6px;padding:10px 16px;font-size:13px;font-weight:600;color:white;width:100%;">Interest compounds daily. The longer you wait, the worse it gets.</div>
+    </div>
+
+    <div class="card">
+      <div class="calc-box">
+        <div class="slider-row">
+          <span class="slider-label">Loan Amount</span>
+          <input type="range" id="amt" min="1" max="64" value="16" step="1" oninput="updateLoan()">
+          <span class="slider-val" id="amt-out">16 diamonds</span>
+        </div>
+        <div class="slider-row">
+          <span class="slider-label">Days Unpaid</span>
+          <input type="range" id="day" min="1" max="14" value="1" step="1" oninput="updateLoan()">
+          <span class="slider-val" id="day-out">1 day</span>
+        </div>
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="result-label">Total Repayment</div>
+            <div class="result-val" id="loan-total">17 dia</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">Accrued Interest</div>
+            <div class="result-val danger" id="loan-interest">0.8 dia</div>
+          </div>
+        </div>
+        <div class="rounding-note">* Repayment rounded up to nearest whole diamond.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px;">How loans work</h3>
+      <div class="steps">
+        <div class="step-row">
+          <div class="step-circle">1</div>
+          <div class="step-body"><h3>Request a loan</h3><p>Agree on the amount and repayment date with the bank.</p></div>
+        </div>
+        <div class="step-row">
+          <div class="step-circle">2</div>
+          <div class="step-body"><h3>Banker issues diamonds + debt book</h3><p>You get the diamonds. A signed debt book is created listing principal, interest rate, and due date. Bank keeps a copy, you keep a copy.</p></div>
+        </div>
+        <div class="step-row">
+          <div class="step-circle">3</div>
+          <div class="step-body"><h3>Repay on time</h3><p>Return diamonds to the bank. Both copies of the debt book are voided. Debt cleared.</p></div>
+        </div>
+        <div class="step-row">
+          <div class="step-circle" style="background:#E62124;">!</div>
+          <div class="step-body"><h3>Miss the deadline</h3><p>Interest keeps compounding. Debt book becomes a warrant. Enforcement Protocol activated.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-savings" class="page">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-icon" style="background:#16A34A;">
+        <svg fill="none" viewBox="0 0 18 18"><path d="M16 6H2a1 1 0 00-1 1v5a1 1 0 001 1h14a1 1 0 001-1V7a1 1 0 00-1-1z" stroke="white" stroke-width="1.2"/><circle cx="9" cy="9" r="1.5" stroke="white" stroke-width="1.2"/></svg>
+      </div>
+      <div class="section-title-text">
+        <h2>Savings Account</h2>
+        <p>Your diamonds earn interest every real-life day</p>
+      </div>
+    </div>
+
+    <div class="savings-rate-hero">
+      <div class="rate-big">2%</div>
+      <div class="rate-sub">per IRL day — paid daily</div>
+      <div class="rate-desc">Keep your diamonds in the UBR vault and earn passive income. The longer you hold, the more you make.</div>
+    </div>
+
+    <div class="card">
+      <div class="calc-box">
+        <div class="slider-row">
+          <span class="slider-label">Deposit Amount</span>
+          <input type="range" id="dep" min="1" max="128" value="32" step="1" oninput="updateSavings()">
+          <span class="slider-val" id="dep-out">32 diamonds</span>
+        </div>
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="result-label">After 1 Day</div>
+            <div class="result-val" style="color:#16A34A;" id="s1">33 dia</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">After 7 Days</div>
+            <div class="result-val" style="color:#16A34A;" id="s7">37 dia</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">After 30 Days</div>
+            <div class="result-val" style="color:#16A34A;" id="s30">58 dia</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">Total Earned</div>
+            <div class="result-val" style="color:#16A34A;" id="s-earned">+26 dia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      Interest is paid out daily by the bank. You must keep your diamonds deposited to earn. Withdrawing resets your streak.
+    </div>
+  </div>
+</div>
+
+<div id="page-rewards" class="page">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-icon" style="background:#D97706;">
+        <svg fill="none" viewBox="0 0 18 18"><polygon points="9,1 11,6.5 17,6.5 12,10 14,16 9,12.5 4,16 6,10 1,6.5 7,6.5" stroke="white" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="section-title-text">
+        <h2>UBR Reward Points</h2>
+        <p>Earn points on every interaction with the bank</p>
+      </div>
+    </div>
+
+    <div class="rewards-header-box">
+      <div>
+        <h3>Earn on every transaction</h3>
+        <p>Points are tracked in your account ledger by the bank</p>
+      </div>
+      <div class="rewards-badge-big">UBR Rewards</div>
+    </div>
+
+    <div class="points-grid">
+      <div class="points-card">
+        <div class="pts">+1</div>
+        <div class="pts-label">Per deposit</div>
+      </div>
+      <div class="points-card">
+        <div class="pts">+2</div>
+        <div class="pts-label">Per check used</div>
+      </div>
+      <div class="points-card">
+        <div class="pts">+5</div>
+        <div class="pts-label">Per loan taken</div>
+      </div>
+    </div>
+
+    <div class="redeem-box">
+      <p>Redemption rewards are being decided by the UBR council. Points are accumulating now — don't miss out.</p>
+      <div class="coming">Redemptions — Coming Soon</div>
+    </div>
+  </div>
+</div>
+
+<div id="page-enforcement" class="page">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--red);">
+        <svg fill="none" viewBox="0 0 18 18"><path d="M9 1l2 5.5h5.5l-4 3.5 1.5 5.5L9 12.5 4 15.5l1.5-5.5-4-3.5H7z" stroke="white" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="section-title-text">
+        <h2>Asset Recovery Protocol</h2>
+        <p>Official policy regarding delinquent accounts and bad debt</p>
+      </div>
+    </div>
+
+    <div class="enforcement-header">
+      <h3>Authorized Enforcement Division</h3>
+      <p>The UBR reserves the right to employ third-party "Recovery Agents" (Enforcers) to settle outstanding balances. By using UBR services, you waive your right to inventory protection in the event of default.</p>
+    </div>
+
+    <div class="enforcement-steps">
+        <div class="enforcement-step">
+          <div class="enforcement-num">1</div>
+          <div>
+            <h4>Notice of Default</h4>
+            <p>Upon the expiration of a loan term or the bouncing of a check, the account is flagged. A 24-hour "Grace Period" is granted unless otherwise specified.</p>
+          </div>
+        </div>
+        <div class="enforcement-step">
+          <div class="enforcement-num">2</div>
+          <div>
+            <h4>Warrant Issuance</h4>
+            <p>If payment is not received, the Ledger entry is converted into a physical <b>Warrant of Seizure</b>. This book contains your last known coordinates and debt total.</p>
+          </div>
+        </div>
+        <div class="enforcement-step">
+          <div class="enforcement-num">3</div>
+          <div>
+            <h4>Liquidation Event</h4>
+            <p>Authorized Enforcers are permitted to use lethal force. All dropped items (armor, tools, resources) are considered UBR property until the debt + 10% processing fee is satisfied.</p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-terms" class="page">
+  <div class="content-wrap">
+    <div class="contract-paper">
+      <div class="contract-header">
+        <h2>Master Financial Services Agreement</h2>
+        <p style="font-size: 10px; color: #666;">UBR FORM 10-B | AMENDED APRIL 2024</p>
+      </div>
+
+      <div class="contract-section">
+        <h4>1. THE PARTIES</h4>
+        <p>This agreement is entered into between the <b>United Biomes Reserve (The Bank)</b> and the <b>Account Holder (The Debtor)</b>. By depositing one (1) or more diamonds, the Debtor agrees to all subsequent clauses.</p>
+      </div>
+
+      <div class="contract-section">
+        <h4>2. LOAN COMPOUNDING & REPAYMENT</h4>
+        <p>Loans accrue interest at a rate of 5% daily, compounding at 00:00 Server Time. Repayment must be made in physical Diamond form unless a Checkbook transfer is pre-authorized by Ryan. Partial payments do not halt the compounding of the remaining principal.</p>
+      </div>
+
+      <div class="contract-section">
+        <h4>3. THE "BLOOD-INK" CLAUSE</h4>
+        <p>In the event of total insolvency (the Debtor having 0 assets), the Bank reserves the right to "Garnish World Presence." This may include the deconstruction of bases, seizure of villager trading halls, or permanent bounty status until the debt is considered "Paid in Effort."</p>
+      </div>
+
+      <div class="contract-section">
+        <h4>4. LIMITATION OF LIABILITY</h4>
+        <p>The UBR is not responsible for diamonds lost due to: Lava accidents, Creeper explosions, unauthorized Ender Chest access, or Server Restarts. All deposits are held at the risk of the Overworld.</p>
+      </div>
+
+      <div class="contract-section">
+        <h4>5. GOVERNING LAW</h4>
+        <p>This contract is governed by the laws of the Overworld Central Authority. Disputes shall be settled by combat in the UBR Arena or by the sole discretion of Ryan.</p>
+      </div>
+
+      <div style="margin-top: 50px;">
+        <div style="float: left;">
+          <div class="sig-line"></div>
+          <p style="font-size: 9px; font-weight: bold;">RYAN, UBR FOUNDER</p>
+        </div>
+        <div style="float: right;">
+          <div class="sig-line"></div>
+          <p style="font-size: 9px; font-weight: bold;">ACCOUNT HOLDER SIGNATURE</p>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>By <span>Ryan</span> · UBR Financial · <span>Overworld Central Authority</span> · Pay Your Debts</p>
+</footer>
+
+<script>
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function updateLoan() {
+  const a = parseInt(document.getElementById('amt').value);
+  const d = parseInt(document.getElementById('day').value);
+  document.getElementById('amt-out').textContent = a + ' diamonds';
+  document.getElementById('day-out').textContent = d + (d === 1 ? ' day' : ' days');
+  const total = a * Math.pow(1.05, d);
+  const interest = total - a;
+  document.getElementById('loan-total').textContent = Math.ceil(total) + ' dia';
+  document.getElementById('loan-interest').textContent = interest.toFixed(1) + ' dia';
+}
+
+function updateSavings() {
+  const d = parseInt(document.getElementById('dep').value);
+  document.getElementById('dep-out').textContent = d + ' diamonds';
+  const s1 = d * Math.pow(1.02, 1);
+  const s7 = d * Math.pow(1.02, 7);
+  const s30 = d * Math.pow(1.02, 30);
+  document.getElementById('s1').textContent = Math.ceil(s1) + ' dia';
+  document.getElementById('s7').textContent = Math.ceil(s7) + ' dia';
+  document.getElementById('s30').textContent = Math.ceil(s30) + ' dia';
+  document.getElementById('s-earned').textContent = '+' + Math.ceil(s30 - d) + ' dia';
+}
+</script>
+</body>
+</html>
