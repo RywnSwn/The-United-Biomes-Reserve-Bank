@@ -39,8 +39,7 @@ body {
 .main-content {
   flex: 1 0 auto;
 }
-
-/* NAV */
+/* NAV - FIXED FOR MOBILE */
 nav {
   background: var(--navy-deeper);
   border-bottom: 3px solid var(--gold);
@@ -51,13 +50,15 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
-  height: 60px;
+  min-height: 60px; /* Changed from height to min-height */
+  flex-wrap: wrap;  /* This prevents the overlap */
 }
 
 .nav-logo {
   display: flex;
   align-items: center;
   gap: 12px;
+  padding: 10px 0;
 }
 
 .nav-logo-box {
@@ -73,6 +74,7 @@ nav {
   font-size: 14px;
   color: white;
   letter-spacing: 0.5px;
+  flex-shrink: 0;
 }
 
 .nav-name {
@@ -82,6 +84,35 @@ nav {
   letter-spacing: 0.5px;
 }
 
+.nav-sub {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap; /* Allows buttons to drop to a new line on phones */
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.nav-link {
+  padding: 8px 14px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s;
+  font-weight: 500;
+  border: none;
+  background: none;
+}
+
+.nav-link:hover { background: rgba(255,255,255,0.08); color: white; }
+.nav-link.active { background: rgba(201,168,76,0.15); color: var(--gold); }
 .nav-sub {
   font-size: 10px;
   color: var(--gold);
@@ -247,6 +278,10 @@ nav {
   justify-content: space-between;
   margin-bottom: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+  @media (max-width: 600px) {
+  .nav-links { width: 100%; justify-content: flex-start; overflow-x: auto; white-space: nowrap; }
+}
 }
 
 .savings-rate-hero {
