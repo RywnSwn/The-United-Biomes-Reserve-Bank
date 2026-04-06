@@ -50,8 +50,8 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
-  min-height: 60px; /* Changed from height to min-height */
-  flex-wrap: wrap;  /* This prevents the overlap */
+  min-height: 60px;
+  flex-wrap: wrap;
 }
 
 .nav-logo {
@@ -94,35 +94,9 @@ nav {
 .nav-links {
   display: flex;
   gap: 4px;
-  flex-wrap: wrap; /* Allows buttons to drop to a new line on phones */
+  flex-wrap: wrap;
   justify-content: center;
   padding-bottom: 10px;
-}
-
-.nav-link {
-  padding: 8px 14px;
-  font-size: 13px;
-  color: rgba(255,255,255,0.7);
-  cursor: pointer;
-  border-radius: 6px;
-  transition: all 0.15s;
-  font-weight: 500;
-  border: none;
-  background: none;
-}
-
-.nav-link:hover { background: rgba(255,255,255,0.08); color: white; }
-.nav-link.active { background: rgba(201,168,76,0.15); color: var(--gold); }
-.nav-sub {
-  font-size: 10px;
-  color: var(--gold);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.nav-links {
-  display: flex;
-  gap: 4px;
 }
 
 .nav-link {
@@ -278,10 +252,6 @@ nav {
   justify-content: space-between;
   margin-bottom: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-
-  @media (max-width: 600px) {
-  .nav-links { width: 100%; justify-content: flex-start; overflow-x: auto; white-space: nowrap; }
-}
 }
 
 .savings-rate-hero {
@@ -296,7 +266,7 @@ nav {
 
 /* MUTED WARNING BOX */
 .compounding-notice {
-  background: #310707; /* Deep muted burgundy */
+  background: #310707;
   border-left: 4px solid var(--red);
   border-radius: 6px;
   padding: 12px 16px;
@@ -987,7 +957,14 @@ footer span { color: var(--gold); }
         <h3 style="font-size:15px;font-weight:700;color:#D97706;margin-bottom:6px;">UBR Reward Points</h3>
         <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Earn points on every transaction. Redemptions coming soon.</p>
       </div>
-      <div class="card" style="border-top: 3px solid var(--red); cursor:pointer;" onclick="showPage('enforcement', document.querySelectorAll('.nav-link')[5])">
+
+      <div class="card" style="background: #111; border: 1px solid var(--gold); border-top: 3px solid var(--gold); cursor:pointer;" onclick="showPage('prestige', document.querySelectorAll('.nav-link')[5])">
+        <div style="margin-bottom:10px; color: var(--gold); font-size: 20px;">✦</div>
+        <h3 style="font-size:15px;font-weight:700;color:var(--gold);margin-bottom:6px;">UBR Prestige</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6;">Access 3% Savings and 4% Loans. Exclusive rewards and status.</p>
+      </div>
+
+      <div class="card" style="border-top: 3px solid var(--red); cursor:pointer;" onclick="showPage('enforcement', document.querySelectorAll('.nav-link')[6])">
         <div style="margin-bottom:10px;">
           <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" stroke="#E62124" stroke-width="1.5" stroke-linejoin="round"/></svg>
         </div>
@@ -1405,13 +1382,13 @@ footer span { color: var(--gold); }
       </div>
 
       <div class="contract-section">
-        <h4>2. LOAN COMPOUNDING & REPAYMENT</h4>
+        <h4>2. LOAN COMPOUND & REPAYMENT</h4>
         <p>Loans aquire interest at a rate of 5% daily, compounding at the deposit time. Repayment must be made in physical Diamond form. Partial payments do not halt the compounding of the remaining principal.</p>
       </div>
 
       <div class="contract-section">
-        <h4>3. ASSEST RECOVERY CLAUSE</h4>
-        <p>In the event of total insolvency (the Debtor having 0 assets), the Bank reserves the right to "Recover Assests." This may include the deconstruction of bases, seizure of villager trading halls, or permanent bounty status until the debt is considered "Paid in Effort."</p>
+        <h4>3. ASSET RECOVERY CLAUSE</h4>
+        <p>In the event of total insolvency (the Debtor having 0 assets), the Bank reserves the right to "Recover Assets." This may include the deconstruction of bases, seizure of villager trading halls, or permanent bounty status until the debt is considered "Paid in Effort."</p>
       </div>
 
       <div class="contract-section">
@@ -1421,7 +1398,7 @@ footer span { color: var(--gold); }
 
       <div class="contract-section">
         <h4>5. GOVERNING LAW</h4>
-        <p>This contract is governed by the laws of the Overworld. Disputes shall be settled by in court, or by PVP. All actions will be at the descretion of Ryan.</p>
+        <p>This contract is governed by the laws of the Overworld. Disputes shall be settled by in court, or by PVP. All actions will be at the discretion of Ryan.</p>
       </div>
 
       <div style="margin-top: 50px;">
@@ -1447,7 +1424,19 @@ function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
-  if (btn) btn.classList.add('active');
+  
+  // Find and activate the correct nav button if it wasn't passed in
+  if (!btn) {
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      if (link.textContent.toLowerCase().includes(id)) {
+        link.classList.add('active');
+      }
+    });
+  } else {
+    btn.classList.add('active');
+  }
+  
   window.scrollTo(0,0);
 }
 
