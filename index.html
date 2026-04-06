@@ -23,7 +23,6 @@
   --gray-600: #64748B;
   --gray-800: #334155;
   --text: #1A2332;
-  --prestige-dark: #0A0F18;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,7 +39,6 @@ body {
 .main-content {
   flex: 1 0 auto;
 }
-
 /* NAV - FIXED FOR MOBILE */
 nav {
   background: var(--navy-deeper);
@@ -52,8 +50,8 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
-  min-height: 60px;
-  flex-wrap: wrap; 
+  min-height: 60px; /* Changed from height to min-height */
+  flex-wrap: wrap;  /* This prevents the overlap */
 }
 
 .nav-logo {
@@ -96,7 +94,7 @@ nav {
 .nav-links {
   display: flex;
   gap: 4px;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Allows buttons to drop to a new line on phones */
   justify-content: center;
   padding-bottom: 10px;
 }
@@ -115,8 +113,32 @@ nav {
 
 .nav-link:hover { background: rgba(255,255,255,0.08); color: white; }
 .nav-link.active { background: rgba(201,168,76,0.15); color: var(--gold); }
-.nav-link.prestige-link { color: var(--gold-light); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-.nav-link.prestige-link:hover { background: rgba(201,168,76,0.2); }
+.nav-sub {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-link {
+  padding: 8px 14px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s;
+  font-weight: 500;
+  border: none;
+  background: none;
+}
+
+.nav-link:hover { background: rgba(255,255,255,0.08); color: white; }
+.nav-link.active { background: rgba(201,168,76,0.15); color: var(--gold); }
 
 /* PAGES */
 .page { display: none; }
@@ -245,95 +267,6 @@ nav {
   margin-top: 2px;
 }
 
-/* PRESTIGE SECTION STYLES */
-#page-prestige {
-  background-color: var(--prestige-dark);
-  background-image: radial-gradient(circle at top right, rgba(201,168,76,0.08) 0%, transparent 60%);
-  min-height: calc(100vh - 60px);
-}
-
-.prestige-banner {
-  text-align: center;
-  margin-bottom: 40px;
-  padding-top: 16px;
-}
-
-.prestige-banner h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 42px;
-  color: var(--gold-light);
-  margin-bottom: 12px;
-  letter-spacing: 1px;
-}
-
-.prestige-banner p {
-  color: rgba(255,255,255,0.7);
-  font-size: 15px;
-  max-width: 500px;
-  margin: 0 auto 24px;
-  line-height: 1.6;
-}
-
-.prestige-req {
-  display: inline-block;
-  background: rgba(0,0,0,0.6);
-  border: 1px dashed var(--gold);
-  color: var(--gold);
-  font-size: 12px;
-  font-weight: 700;
-  padding: 8px 16px;
-  border-radius: 6px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.prestige-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.prestige-card-perk {
-  background: #111824; /* Slightly lighter than prestige-dark for contrast */
-  border: 1px solid rgba(201,168,76,0.15);
-  border-top: 3px solid var(--gold);
-  border-radius: 12px;
-  padding: 32px 24px;
-  color: white;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.prestige-card-perk:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(201,168,76,0.1);
-  border-color: rgba(201,168,76,0.4);
-}
-
-.prestige-icon {
-  width: 48px;
-  height: 48px;
-  background: rgba(201,168,76,0.1);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.prestige-card-perk h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  color: var(--gold);
-  margin-bottom: 12px;
-}
-
-.prestige-card-perk p {
-  font-size: 14px;
-  color: rgba(255,255,255,0.6);
-  line-height: 1.6;
-}
-
 /* GRADIENT BANNERS */
 .promo-banner {
   background: linear-gradient(135deg, var(--navy-deeper) 0%, var(--navy) 100%);
@@ -345,11 +278,10 @@ nav {
   justify-content: space-between;
   margin-bottom: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
 
-@media (max-width: 600px) {
-  .nav-links { width: 100%; justify-content: flex-start; overflow-x: auto; white-space: nowrap; padding-bottom: 15px; }
-  .promo-banner { flex-direction: column; align-items: flex-start; gap: 18px; }
+  @media (max-width: 600px) {
+  .nav-links { width: 100%; justify-content: flex-start; overflow-x: auto; white-space: nowrap; }
+}
 }
 
 .savings-rate-hero {
@@ -364,7 +296,7 @@ nav {
 
 /* MUTED WARNING BOX */
 .compounding-notice {
-  background: #310707;
+  background: #310707; /* Deep muted burgundy */
   border-left: 4px solid var(--red);
   border-radius: 6px;
   padding: 12px 16px;
@@ -619,8 +551,6 @@ footer {
   padding: 24px 32px;
   text-align: center;
   flex-shrink: 0;
-  position: relative;
-  z-index: 10; /* Ensures footer sits above prestige background if needed */
 }
 
 footer p { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 1px; text-transform: uppercase; }
@@ -636,6 +566,346 @@ footer span { color: var(--gold); }
   color: #1E40AF;
   line-height: 1.6;
   margin-bottom: 16px;
+}
+
+/* SAVINGS DISCLAIMER */
+.savings-disclaimer {
+  background: #1a1a1a;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 11px;
+  color: rgba(201,168,76,0.7);
+  line-height: 1.6;
+  margin-top: 8px;
+  letter-spacing: 0.2px;
+}
+
+/* PRESTIGE NAV BUTTON */
+.nav-link-prestige {
+  color: var(--gold) !important;
+  border: 1px solid rgba(201,168,76,0.3);
+  background: rgba(201,168,76,0.07) !important;
+}
+.nav-link-prestige:hover { background: rgba(201,168,76,0.18) !important; }
+.nav-link-prestige.active { background: rgba(201,168,76,0.25) !important; }
+
+/* PRESTIGE PAGE */
+#page-prestige {
+  background: #0a0a0a;
+  min-height: 100vh;
+}
+
+.prestige-hero {
+  background: linear-gradient(160deg, #111 0%, #1a1400 60%, #0d0d0d 100%);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 64px 32px 72px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.prestige-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.prestige-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.35);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 7px 18px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+}
+
+.prestige-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 54px;
+  font-weight: 900;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.prestige-hero h1 span {
+  background: linear-gradient(90deg, #C9A84C, #F0D080, #C9A84C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.prestige-hero-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  max-width: 440px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.prestige-entry-pill {
+  display: inline-block;
+  background: linear-gradient(135deg, #C9A84C, #a07830);
+  color: #000;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 28px;
+  border-radius: 30px;
+  letter-spacing: 0.5px;
+}
+
+/* PRESTIGE CONTENT */
+.prestige-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.prestige-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.prestige-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(201,168,76,0.2);
+}
+
+/* RATE CARDS */
+.prestige-rates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.prestige-rate-card {
+  background: #111;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.prestige-rate-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.prestige-rate-card .rate-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 12px;
+}
+
+.prestige-rate-card .rate-old {
+  font-size: 14px;
+  color: rgba(255,255,255,0.25);
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+
+.prestige-rate-card .rate-new {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.prestige-rate-card .rate-desc {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* BENEFITS LIST */
+.prestige-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.prestige-benefit-card {
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.prestige-benefit-icon {
+  width: 34px;
+  height: 34px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 15px;
+}
+
+.prestige-benefit-card h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 3px;
+}
+
+.prestige-benefit-card p {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.5;
+}
+
+/* PRESTIGE REWARDS TIERS */
+.prestige-rewards-box {
+  background: #111;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.prestige-rewards-header {
+  background: rgba(201,168,76,0.08);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.prestige-rewards-header h3 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+}
+
+.prestige-rewards-header span {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.prestige-reward-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  gap: 12px;
+}
+
+.prestige-reward-row:last-child { border-bottom: none; }
+
+.prestige-reward-pts {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold);
+  min-width: 70px;
+}
+
+.prestige-reward-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  flex: 1;
+}
+
+.prestige-reward-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 10px;
+  background: rgba(201,168,76,0.12);
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.25);
+}
+
+/* ENROLL BOX */
+.prestige-enroll-box {
+  background: linear-gradient(135deg, #161200, #1a1600);
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 14px;
+  padding: 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.prestige-enroll-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 60% at 50% 100%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.prestige-enroll-box h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.prestige-enroll-box p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.prestige-enroll-cost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #C9A84C, #8a6820);
+  color: #000;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 13px 32px;
+  border-radius: 30px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 0 30px rgba(201,168,76,0.2);
 }
 </style>
 </head>
@@ -656,7 +926,7 @@ footer span { color: var(--gold); }
     <button class="nav-link" onclick="showPage('loans', this)">Loans</button>
     <button class="nav-link" onclick="showPage('savings', this)">Savings</button>
     <button class="nav-link" onclick="showPage('rewards', this)">Rewards</button>
-    <button class="nav-link prestige-link" onclick="showPage('prestige', this)">Prestige</button>
+    <button class="nav-link nav-link-prestige" onclick="showPage('prestige', this)">✦ Prestige</button>
     <button class="nav-link" onclick="showPage('enforcement', this)">Enforcement</button>
     <button class="nav-link" onclick="showPage('terms', this)">Terms</button>
   </div>
@@ -717,16 +987,7 @@ footer span { color: var(--gold); }
         <h3 style="font-size:15px;font-weight:700;color:#D97706;margin-bottom:6px;">UBR Reward Points</h3>
         <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Earn points on every transaction. Redemptions coming soon.</p>
       </div>
-      
-      <div class="card" style="background: linear-gradient(135deg, #1A2332 0%, #0A0F18 100%); border: 1px solid var(--gold); border-top: 3px solid var(--gold); cursor:pointer;" onclick="showPage('prestige', document.querySelectorAll('.nav-link')[5])">
-        <div style="margin-bottom:10px;">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        </div>
-        <h3 style="font-size:15px;font-weight:700;color:var(--gold);margin-bottom:6px;">UBR Prestige</h3>
-        <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;">VIP Banking. Concierge delivery, exclusive redemptions, premium rates.</p>
-      </div>
-
-      <div class="card" style="border-top: 3px solid var(--red); cursor:pointer;" onclick="showPage('enforcement', document.querySelectorAll('.nav-link')[6])">
+      <div class="card" style="border-top: 3px solid var(--red); cursor:pointer;" onclick="showPage('enforcement', document.querySelectorAll('.nav-link')[5])">
         <div style="margin-bottom:10px;">
           <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" stroke="#E62124" stroke-width="1.5" stroke-linejoin="round"/></svg>
         </div>
@@ -896,19 +1157,19 @@ footer span { color: var(--gold); }
         <div class="result-grid">
           <div class="result-card">
             <div class="result-label">After 1 Day</div>
-            <div class="result-val" style="color:#16A34A;" id="s1">32 dia</div>
+            <div class="result-val" style="color:#16A34A;" id="s1">33 dia</div>
           </div>
           <div class="result-card">
             <div class="result-label">After 7 Days</div>
-            <div class="result-val" style="color:#16A34A;" id="s7">36 dia</div>
+            <div class="result-val" style="color:#16A34A;" id="s7">37 dia</div>
           </div>
           <div class="result-card">
             <div class="result-label">After 30 Days</div>
-            <div class="result-val" style="color:#16A34A;" id="s30">57 dia</div>
+            <div class="result-val" style="color:#16A34A;" id="s30">58 dia</div>
           </div>
           <div class="result-card">
             <div class="result-label">Total Earned</div>
-            <div class="result-val" style="color:#16A34A;" id="s-earned">+25 dia</div>
+            <div class="result-val" style="color:#16A34A;" id="s-earned">+26 dia</div>
           </div>
         </div>
       </div>
@@ -916,6 +1177,9 @@ footer span { color: var(--gold); }
 
     <div class="info-box">
       Interest is paid out daily by the bank. The intrest is paid by the ammount that is in your balance.
+    </div>
+    <div class="savings-disclaimer">
+      ⚠ Rounding Policy: All interest payouts are rounded <strong style="color:var(--gold);">down</strong> to the nearest whole diamond. Fractional diamonds (e.g. 0.9) are not paid out and do not carry over.
     </div>
   </div>
 </div>
@@ -963,48 +1227,95 @@ footer span { color: var(--gold); }
 </div>
 
 <div id="page-prestige" class="page">
-  <div class="content-wrap">
-    
-    <div class="prestige-banner">
-      <h2>UBR Prestige</h2>
-      <p>Elite banking for the Overworld's most successful residents. Access unprecedented perks, white-glove service, and a tier above the rest.</p>
-      <div class="prestige-req">Qualification Requires 256+ Diamond Balance</div>
+  <div class="prestige-hero">
+    <div class="prestige-badge">✦ Exclusive Membership</div>
+    <h1>UBR <span>Prestige</span></h1>
+    <p class="prestige-hero-sub">The highest tier of UBR membership. Reserved for serious players who demand better rates, exclusive rewards, and dedicated concierge service.</p>
+    <div class="prestige-entry-pill">◆ One-Time Entry: 256 Diamonds</div>
+  </div>
+
+  <div class="prestige-wrap">
+
+    <div class="prestige-section-label">Exclusive Rates</div>
+    <div class="prestige-rates-grid">
+      <div class="prestige-rate-card">
+        <div class="rate-label">Savings Interest</div>
+        <div class="rate-old">Standard: 2% / day</div>
+        <div class="rate-new">3%</div>
+        <div class="rate-desc">Per IRL day. Your diamonds work harder in the Prestige vault.</div>
+      </div>
+      <div class="prestige-rate-card">
+        <div class="rate-label">Loan Interest</div>
+        <div class="rate-old">Standard: 5% / day</div>
+        <div class="rate-new">4%</div>
+        <div class="rate-desc">Per IRL day. Lower compounding means less owed at repayment.</div>
+      </div>
     </div>
 
-    <div class="prestige-grid">
-      
-      <div class="prestige-card-perk">
-        <div class="prestige-icon">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M5 9l7 4 7-4-7-4-7 4zM5 14l7 4 7-4" stroke="#C9A84C" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+    <div class="prestige-section-label">Member Benefits</div>
+    <div class="prestige-benefits-grid">
+      <div class="prestige-benefit-card">
+        <div class="prestige-benefit-icon" style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--gold);">LIM</div>
+        <div>
+          <h4>Higher Loan Limits</h4>
+          <p>Access larger loans than standard accounts. Negotiate bigger deals with the bank's backing.</p>
         </div>
-        <h3>Concierge Delivery</h3>
-        <p>Never walk to the bank again. Contact UBR through your communicator, and your requested diamonds will be securely transported directly to your base's vault by a dedicated courier.</p>
       </div>
-
-      <div class="prestige-card-perk">
-        <div class="prestige-icon">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#C9A84C" stroke-width="2" stroke-linejoin="round"/></svg>
+      <div class="prestige-benefit-card">
+        <div class="prestige-benefit-icon" style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--gold);">VIP</div>
+        <div>
+          <h4>Concierge Service</h4>
+          <p>Direct contact with UBR staff for transactions. Priority handling on all requests.</p>
         </div>
-        <h3>Exclusive Redemptions</h3>
-        <p>Convert your UBR points into high-value, server-exclusive items. Prestige members gain access to a hidden catalog featuring Elytras, Enchanted Golden Apples, and rare armor trims not available to standard accounts.</p>
       </div>
-
-      <div class="prestige-card-perk">
-        <div class="prestige-icon">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#C9A84C" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <div class="prestige-benefit-card">
+        <div class="prestige-benefit-icon" style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold);">✦</div>
+        <div>
+          <h4>Prestige Ledger Badge</h4>
+          <p>Your account is marked Prestige in the official UBR ledger. Status that others can see.</p>
         </div>
-        <h3>Grace Period Shield</h3>
-        <p>Missed a loan payment? Prestige members automatically receive a 48-hour Grace Period Shield before the Asset Recovery Protocol is activated. Breathe easy knowing your assets are protected from immediate seizure.</p>
       </div>
-
-      <div class="prestige-card-perk">
-        <div class="prestige-icon">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="#C9A84C"/><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm-8 13c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" fill="#C9A84C"/></svg>
+      <div class="prestige-benefit-card">
+        <div class="prestige-benefit-icon" style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--gold);">RWD</div>
+        <div>
+          <h4>Exclusive Reward Redemptions</h4>
+          <p>Access to Prestige-only reward tiers not available to standard Rewards members.</p>
         </div>
-        <h3>Premium Lending Rate</h3>
-        <p>Borrowing just got cheaper. While standard accounts face a 5% daily compound interest, Prestige members enjoy a heavily discounted 3% daily rate, keeping more diamonds in your pocket.</p>
       </div>
+    </div>
 
+    <div class="prestige-section-label">Prestige Exclusive Rewards</div>
+    <div class="prestige-rewards-box">
+      <div class="prestige-rewards-header">
+        <h3>Points Redemption Tiers</h3>
+        <span>Prestige Members Only</span>
+      </div>
+      <div class="prestige-reward-row">
+        <div class="prestige-reward-pts">50 pts</div>
+        <div class="prestige-reward-name">Signed Book from the Founder</div>
+        <div class="prestige-reward-tag">Exclusive</div>
+      </div>
+      <div class="prestige-reward-row">
+        <div class="prestige-reward-pts">100 pts</div>
+        <div class="prestige-reward-name">Netherite Ingot</div>
+        <div class="prestige-reward-tag">Exclusive</div>
+      </div>
+      <div class="prestige-reward-row">
+        <div class="prestige-reward-pts">200 pts</div>
+        <div class="prestige-reward-name">Elytra</div>
+        <div class="prestige-reward-tag">Exclusive</div>
+      </div>
+      <div class="prestige-reward-row">
+        <div class="prestige-reward-pts">300 pts</div>
+        <div class="prestige-reward-name">Prestige Reward — Decided by UBR</div>
+        <div class="prestige-reward-tag">Coming Soon</div>
+      </div>
+    </div>
+
+    <div class="prestige-enroll-box">
+      <h3>Join UBR Prestige</h3>
+      <p>Pay the one-time entry fee directly to the bank. Your account will be upgraded in the ledger and your new rates apply immediately.</p>
+      <div class="prestige-enroll-cost">◆ 256 Diamonds &mdash; One Time, Lifetime Status</div>
     </div>
 
   </div>
@@ -1032,7 +1343,7 @@ footer span { color: var(--gold); }
           <div class="enforcement-num">1</div>
           <div>
             <h4>Notice of Default</h4>
-            <p>Upon the expiration of a loan term or the bouncing of a check, the account is flagged. A 24-hour "Grace Period" is granted unless otherwise specified (Prestige members receive 48 hours).</p>
+            <p>Upon the expiration of a loan term or the bouncing of a check, the account is flagged. A 24-hour "Grace Period" is granted unless otherwise specified.</p>
           </div>
         </div>
         <div class="enforcement-step">
@@ -1130,10 +1441,10 @@ function updateSavings() {
   const s1 = d * Math.pow(1.02, 1);
   const s7 = d * Math.pow(1.02, 7);
   const s30 = d * Math.pow(1.02, 30);
-  document.getElementById('s1').textContent = Math.floor(s1) + ' dia';
-  document.getElementById('s7').textContent = Math.floor(s7) + ' dia';
-  document.getElementById('s30').textContent = Math.floor(s30) + ' dia';
-  document.getElementById('s-earned').textContent = '+' + Math.floor(s30 - d) + ' dia';
+  document.getElementById('s1').textContent = Math.ceil(s1) + ' dia';
+  document.getElementById('s7').textContent = Math.ceil(s7) + ' dia';
+  document.getElementById('s30').textContent = Math.ceil(s30) + ' dia';
+  document.getElementById('s-earned').textContent = '+' + Math.ceil(s30 - d) + ' dia';
 }
 </script>
 </body>
