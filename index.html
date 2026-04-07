@@ -117,7 +117,6 @@ nav {
 .page.active { display: block; }
 
 .hero {
-  /* Updated to a much richer spotlight gradient */
   background: radial-gradient(ellipse at top, #004585 0%, var(--navy-deeper) 60%, #001229 100%);
   padding: 72px 32px 80px;
   text-align: center;
@@ -130,7 +129,6 @@ nav {
   content: '';
   position: absolute;
   inset: 0;
-  /* Added a very subtle grid on top of the gradient to look more refined */
   background: 
     linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
@@ -514,7 +512,6 @@ footer span { color: var(--gold); }
   margin-bottom: 16px;
 }
 
-/* Updated Savings Disclaimer to be light blue and legible */
 .savings-disclaimer {
   background: #E0F2FE;
   border: 1px solid #BAE6FD;
@@ -807,12 +804,6 @@ footer span { color: var(--gold); }
   background: rgba(201,168,76,0.12);
   color: var(--gold);
   border: 1px solid rgba(201,168,76,0.25);
-}
-
-.prestige-reward-tag.emergency {
-  background: rgba(230,33,36,0.15);
-  color: #fca5a5;
-  border: 1px solid rgba(230,33,36,0.3);
 }
 
 .prestige-enroll-box {
@@ -1336,6 +1327,15 @@ footer span { color: var(--gold); }
           <p>Access to Prestige-only reward tiers not available to standard Rewards members.</p>
         </div>
       </div>
+      
+      <div class="prestige-benefit-card">
+        <div class="prestige-benefit-icon" style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:#fca5a5;background:rgba(230,33,36,0.1);border:1px solid rgba(230,33,36,0.25);">SOS</div>
+        <div>
+          <h4>Emergency Diamond Armor</h4>
+          <p>Loaned free for 3 MC days in a pinch. Must be returned intact or full market value is charged to your ledger.</p>
+        </div>
+      </div>
+
     </div>
 
     <div class="prestige-section-label">Prestige Exclusive Rewards</div>
@@ -1353,14 +1353,6 @@ footer span { color: var(--gold); }
         <div class="prestige-reward-pts">100 pts</div>
         <div class="prestige-reward-name">Netherite Ingot</div>
         <div class="prestige-reward-tag">Exclusive</div>
-      </div>
-      <div class="prestige-reward-row">
-        <div class="prestige-reward-pts">150 pts</div>
-        <div class="prestige-reward-name">
-          Emergency Diamond Armor Set
-          <small>Loaned for 3 MC days &mdash; must be returned or full market value charged</small>
-        </div>
-        <div class="prestige-reward-tag emergency">Emergency</div>
       </div>
       <div class="prestige-reward-row">
         <div class="prestige-reward-pts">200 pts</div>
