@@ -117,24 +117,25 @@ nav {
 .page.active { display: block; }
 
 .hero {
-  background: var(--navy-deeper);
+  /* Updated to a much richer spotlight gradient */
+  background: radial-gradient(ellipse at top, #004585 0%, var(--navy-deeper) 60%, #001229 100%);
   padding: 72px 32px 80px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 -10px 30px rgba(0,0,0,0.2);
 }
 
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 40px,
-    rgba(255,255,255,0.015) 40px,
-    rgba(255,255,255,0.015) 41px
-  );
+  /* Added a very subtle grid on top of the gradient to look more refined */
+  background: 
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
 }
 
 .hero-badge {
@@ -149,6 +150,7 @@ nav {
   padding: 6px 16px;
   border-radius: 20px;
   margin-bottom: 24px;
+  position: relative;
 }
 
 .hero h1 {
@@ -165,9 +167,10 @@ nav {
 
 .hero-sub {
   font-size: 15px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.65);
   margin-bottom: 40px;
   letter-spacing: 0.3px;
+  position: relative;
 }
 
 .hero-stats {
@@ -191,7 +194,7 @@ nav {
 
 .hero-stat-label {
   font-size: 11px;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.5);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-top: 4px;
@@ -511,14 +514,15 @@ footer span { color: var(--gold); }
   margin-bottom: 16px;
 }
 
+/* Updated Savings Disclaimer to be light blue and legible */
 .savings-disclaimer {
-  background: #1a1a1a;
-  border: 1px solid rgba(201,168,76,0.25);
-  border-left: 3px solid var(--gold);
+  background: #E0F2FE;
+  border: 1px solid #BAE6FD;
+  border-left: 4px solid #0284C7;
   border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 11px;
-  color: rgba(201,168,76,0.7);
+  padding: 12px 16px;
+  font-size: 12px;
+  color: #075985;
   line-height: 1.6;
   margin-top: 8px;
   letter-spacing: 0.2px;
@@ -884,7 +888,7 @@ footer span { color: var(--gold); }
 <div id="page-home" class="page active">
   <div class="hero">
     <div class="hero-badge">The United Biomes Reserve Bank · Founded by Ryan</div> 
-    <h1>The <span>United Biomes</span><br>Reserve</h1>
+    <h1>The <span>United Biomes</span><br>Reserve Bank</h1>
     <p class="hero-sub">The Overworld's only chartered financial institution. Secure your assets, grow your wealth, and trust the system.</p>
     <div class="hero-stats">
       <div class="hero-stat">
@@ -1095,7 +1099,6 @@ footer span { color: var(--gold); }
   </div>
 </div>
 
-<!-- SAVINGS PAGE - Updated: 2% per 3 IRL days -->
 <div id="page-savings" class="page">
   <div class="content-wrap">
     <div class="section-header">
@@ -1145,8 +1148,9 @@ footer span { color: var(--gold); }
     <div class="info-box">
       Interest is paid out by the bank once every 3 IRL days. The payout is based on your current balance at the time of payment.
     </div>
+    
     <div class="savings-disclaimer">
-      &#9888; Rounding Policy: All interest payouts are rounded <strong style="color:var(--gold);">down</strong> to the nearest whole diamond. Fractional diamonds (e.g. 0.9) are not paid out and do not carry over.
+      &#9888; Rounding Policy: All interest payouts are rounded <strong style="color:#0284C7;">down</strong> to the nearest whole diamond. Fractional diamonds (e.g. 0.9) are not paid out and do not carry over.
     </div>
 
     <div style="margin-top:24px;">
@@ -1276,7 +1280,6 @@ footer span { color: var(--gold); }
   </div>
 </div>
 
-<!-- PRESTIGE PAGE - Updated: 3% per 3 IRL days + Emergency Diamond Armor reward -->
 <div id="page-prestige" class="page">
   <div class="prestige-hero">
     <div class="prestige-badge">&#10022; Exclusive Membership</div>
